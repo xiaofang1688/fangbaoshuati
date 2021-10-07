@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>方包刷题</title>
+   <style type="text/css">
+     button {  
+        width: 200px;  
+        padding:8px;  
+        background-color: #428bca;  
+        border-color: #357ebd;  
+        color: #fff;  
+        -moz-border-radius: 10px;  
+        -webkit-border-radius: 10px;  
+        border-radius: 10px; /* future proofing */  
+        -khtml-border-radius: 10px; /* for old Konqueror browsers */  
+        text-align: center;  
+        vertical-align: middle;  
+        border: 1px solid transparent;  
+        font-weight: 900;  
+        font-size:125%  
+      }  
+   </style>
+</head>
+<body>
+        <div id="el" style="text-align:center;">
+        <h1 class='title'>方包刷题</h1>
+        <div class="author"><a href="http://www.fang1688.cn">@方包的个人博客</a></div>
+                      <br>
+        <h3 style="text-align:center;"><a href="https://www.fang1688.cn/study-code/2373.html">如果不懂，点击此处跳转“方包刷题”的使用教程</a></h3>
+        <div class="timuList">
+            <div>
+                <Card class="timu">
+                    <p slot="title">请修改以下内容</p>
+                    <div style="color: red;" id="muban"></div>
+                    <textarea name="description" cols="200" rows="15" style="background-color: #e9ecef;" v-model="jsonList">{{jsonList}}</textarea>
+                    <br>
+                    <br>
+                    <button @click='go()'>提交</button>
+                </Card>
+            </div>
+        </div>
+                    <br>
+                    <br>
+                    <br>
+                <div style="color: red;">{{suc}}</div>
+                <a href="/">提交成功后请点击此处跳转到首页！若修改不显示，请清除浏览器cookies缓存，再次刷新网页！</a>
+
+    </div>
+
+</body>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="../static/js/vue.min.js"></script>
+
+    <script>
+        const vue = new Vue({
+            el: "#el",
+            data: {
+                jsonList: "",
+                suc: ""
+            },
+              created: function() {
+                    var self= this;
+                    axios.get('/static/js/public.js')
+                     .then(function (response) { 
+                        self.jsonList=response.data;
+                      // console.log(response.data);
+                     })
+                     .catch(function (error) {
+                      console.log(error);
+                     });
+
+                            
+                    },
+
+
+            methods: {
+                go: function() {
+                    // window.location.href = "/tpye";
+                    console.log(this.jsonList);
+                    var self=this;
+
+                              axios.get('/getedit', {
+                              params: {
+                              content:this.jsonList
+                              }
+                             })
+                             .then(function (res) {
+                              // console.log(res.status);
+                              // console.log(res.data);
+                              self.suc=res.data;
+                              console.log(res.data);
+                                setTimeout("window.location.replace('/');", 5000 );
+
+                             })
+                             .catch(function (error) {
+                              console.log(error);
+                             });
+                }
+            }
+        })
+    </script>
+</html>
+
+<script>
+                     //获取题库的名字
+                      var searchURL = window.location.search;
+                      searchURL = searchURL.substring(1, searchURL.length);
+                      var targetPageId = searchURL.split("&")[0].split("=")[1];
+                      document.getElementById("muban").innerHTML=` 复制花括号的内容到下面文本框中，模板为：{ id: "此处随意填写", name: '导入题库的标题', describe: '导入题库的描述', file:"${targetPageId}" }`;
+                        
+</script>

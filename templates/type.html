@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache,must-revalidate">
+    <meta http-equiv="Cache" content="no-cache">
+    <title>答题类型选择</title>
+    <link rel="stylesheet" href="../static/css/iview.css">
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?b3a7eb27703def9ba98376aca09290db";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <style>
+        .typeList {
+            width: 95vw;
+            margin: 2vw auto;
+        }
+        
+        .typeList>div {
+            margin-top: 2vw;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="el">
+        <p style="margin-left:3vw;margin-top: 3vw;font-size: 0.9rem;">请选择答题模式：</p>
+        <div class="typeList">
+            <div v-for="i in typeList" @click='goNext(i.id)'>
+                <Card class="timu">
+                    {{i.name}}
+                </Card>
+            </div>
+        </div>
+    </div>
+    <script src="../static/js/vue.min.js"></script>
+    <script src="../static/js/iview.min.js"></script>
+    <script>
+        const vue = new Vue({
+            el: "#el",
+            data: {
+                typeList: [{
+                    id: 'random',
+                    name: "乱序答题"
+                }, {
+                    id: 'order',
+                    name: "顺序答题"
+                }, {
+                    id: 'recite',
+                    name: "背题模式"
+                }, {
+                    id: 'wrong',
+                    name: "错题模式"
+                }]
+            },
+            methods: {
+                goNext(id) {
+                    sessionStorage.type = id;
+                    window.location.href = "/timu"
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

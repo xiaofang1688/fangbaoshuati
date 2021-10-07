@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache,must-revalidate">
+    <meta http-equiv="Cache" content="no-cache">
+    <title>方包刷题</title>
+    <link rel="stylesheet" href="../static/css/iview.css">
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?b3a7eb27703def9ba98376aca09290db";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    <style>
+        .title {
+            text-align: center;
+            margin-top: 2vw;
+        }
+        
+        .timuList {
+            width: 96vw;
+            margin: 2vw auto 0;
+        }
+        
+        .timu {
+            margin-top: 2vw;
+        }
+        
+        .author {
+            text-align: right;
+            padding-right: 3.2vw;
+            margin-bottom: 1.5vw;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="el">
+        <h1 class='title'>方包刷题</h1>
+        <div class="author"><a href="http://www.fang1688.cn">@方包的个人博客</a></div>
+        <br>
+        <h3 style="text-align:center;"><a href="https://www.fang1688.cn/study-code/2373.html">如果不懂，点击此处跳转“方包刷题”的使用教程</a></h3>
+        <br>
+        <h2 style="text-align:center;"><a href="/edit1">导入题库</a></h2>
+        <div class="timuList">
+            <div v-for="i in jsonList" @click='goNext(i.id,i.file)'>
+                <Card class="timu">
+                    <p slot="title">{{i.name}}</p>
+                    {{i.describe}}
+                </Card>
+            </div>
+
+        </div>
+    </div>
+    <script src="../static/js/public.js?version=1.0"></script>
+    <script src="../static/js/vue.min.js"></script>
+    <script src="../static/js/iview.min.js"></script>
+    <script>
+        const vue = new Vue({
+            el: "#el",
+            data: {
+                jsonList: JSONList
+            },
+            methods: {
+                goNext: function(id, file) {
+                    sessionStorage.id = id;
+                    sessionStorage.file = file;
+                    window.location.href = "/tpye";
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
