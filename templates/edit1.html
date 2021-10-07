@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>方包刷题</title>
+   <style type="text/css">
+     button {  
+        width: 200px;  
+        padding:8px;  
+        background-color: #428bca;  
+        border-color: #357ebd;  
+        color: #fff;  
+        -moz-border-radius: 10px;  
+        -webkit-border-radius: 10px;  
+        border-radius: 10px;  
+        -khtml-border-radius: 10px;  
+        text-align: center;  
+        vertical-align: middle;  
+        border: 1px solid transparent;  
+        font-weight: 900;  
+        font-size:125%  
+      }  
+   </style>
+</head>
+<body>
+        <div id="el" style="text-align:center;">
+        <h1 class='title'>方包刷题</h1>
+        <div class="author"><a href="http://www.fang1688.cn">@方包的个人博客</a></div>
+                <br>
+        <h3 style="text-align:center;"><a href="https://www.fang1688.cn/study-code/2373.html">如果不懂，点击此处跳转“方包刷题”的使用教程</a></h3>
+        <div class="timuList">
+            <div>
+                <Card class="timu">
+                    <p slot="title">请导入题库到下面文本框中</p>
+                    <textarea name="description" cols="200" rows="15" style="background-color: #e9ecef;" v-model="jsonList"></textarea>
+                    <br>
+                    <br>
+                    <button @click='go()'>提交</button>
+                </Card>
+            </div>
+        </div>
+                    <br>
+                    <br>
+                    <br>
+                <div style="color: red;" v-model="jsonList">{{suc}}</div>
+                <a v-bind:href="url">使用步骤：1.复制题库的模板到上方的文本框中。2.提交成功后，点击此处</a>
+                <br>
+                <div>方包刷题WEB网站的项目搭建与使用教程   https://www.fang1688.cn/study-code/2373.html</div>
+
+    </div>
+
+</body>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="../static/js/vue.min.js"></script>
+
+    <script>
+        const vue = new Vue({
+            el: "#el",
+            data: {
+                jsonList: "",
+                suc: "",
+                url:"/edit",
+            },
+              created: function() {
+
+                            
+                    },
+
+
+            methods: {
+                go: function() {
+                    // window.location.href = "/tpye";
+                    var self=this;
+                              axios.get('/test', {
+                              params: {
+                              content:this.jsonList
+                              }
+                             })
+                             .then(function (res) {
+                              console.log(res.data);
+                              // console.log(res.data);
+                              self.suc='创建成功file:"'+res.data+'"';
+                              // console.log(self.url);
+                              self.url= self.url+"?dt="+res.data;
+                              console.log(self.url);
+                              setTimeout("window.location.replace('"+ self.url +"');", 5000 );
+
+                             })
+                             .catch(function (error) {
+                              console.log(error);
+                             });
+
+
+
+                }
+            }
+        })
+    </script>
+</html>
