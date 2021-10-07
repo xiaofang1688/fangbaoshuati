@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request
-import tkinter as tk
-from tkinter import filedialog
+# import tkinter as tk
+# from tkinter import filedialog
 import re,time,random,json
 
 app = Flask(__name__)
@@ -17,8 +17,8 @@ app = CustomFlask(__name__)
 @app.route('/test',methods=["GET", "POST"])
 def test():
 	q= request.args.get("content")
-	root = tk.Tk()
-	root.withdraw()
+	# root = tk.Tk()
+	# root.withdraw()
 	data=q.replace('．','.')
 	# 不同题目分割
 	pattern = re.compile(r'(?:^|\n\s*)\d+?[\.\。]')
